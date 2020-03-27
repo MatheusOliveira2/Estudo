@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="app" @mousemove="coordenada">
+        <h1>{{contador}}</h1>
+        <button @click="maisUM(5)">+1</button>
+        <button @click="contador = 0">zerar</button>
+        <p>x: {{x}}</p>
+        <p>y: {{y}}</p>
+    </div>
+</body>
+</html>
+
+<script>
+    new Vue({
+        el: "#app",
+        data:{
+            contador: 0,
+            x: 0,
+            y:0
+        },
+        methods:{
+            maisUM(valor){
+                this.contador += valor
+            },
+
+            coordenada(e){
+                this.x = e.clientX
+                this.y = e.clientY
+            }
+        }
+
+    })
+</script>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="desafio">
+        <p>{{nome}}</p>
+        <input type="text" v-model:value="nome">
+    </div>
+</body>
+
+
+</html>
+
+<script>
+    new Vue({
+        el: "#desafio",
+        data:{
+            nome: "Matheus"
+        }
+    })
+</script>
