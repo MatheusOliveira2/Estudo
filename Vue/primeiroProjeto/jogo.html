@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../vue.js"></script>
+    <title>Document</title>
+    <style>
+        #app{
+            display: flex;
+            flex-direction: column;
+        }
+
+        .panel{
+            margin: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+        }
+    
+        .scores{
+            display: flex;
+        }
+    
+        .score{
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .life-bar{
+            width: 80%;
+            height: 20px;
+            border: 1px solid #AAA ;
+        }
+
+        .life-bar .life{
+            display: flex;
+            justify-content: center;
+            height: 100%;
+            width: 50%;
+            background-color: green;
+        }
+
+        .life-bar .life.danger{
+            background-color: red;
+        }
+
+        .buttons{
+            display: flex;
+            flex-direction: row;
+            text-align: center;
+            justify-content: center;
+            
+        }
+
+        .buttons button{
+            height: 30px;
+            width: 100px;
+            margin: 5px;
+            border-radius: 5px;
+        }
+        
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="panel scores">
+            <div class="score">
+                <h1>Herói</h1>
+                <div class="life-bar">
+                    <div class="life" :class="{danger: heroLife < 20}" :style="{width:heroLife + '%'}">
+                        {{heroLife}}%
+                    </div>
+                </div>
+            </div>
+            
+            <div class="score">
+                <h1>Monstro</h1>
+                <div class="life-bar">
+                    <div class="life" :class="{danger: monsterLife < 20}" :style="{width:monsterLife + '%'}">
+                        {{monsterLife}}%
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel result">
+            <p>O heroi causou:{{heroDamage}} de dano O monstro causou {{monsterDamage}} de dano</p> 
+        </div>
+        <div class="panel buttons">
+            <button @click="atacar()" style="background-color: red">Atacar</button>
+            <button @click="especial()" style="background-color: orange">Especial</button>
+            <button @click="curar()" style="background-color: green">Curar</button>
+            <button @click="desistir()" style="background-color: grey">Desistir</button>
+        </div>
+        <div class="panel logs">
+            <p v-for="item in list">O herói causou {{item.hero}} de dano e o monstro causou {{item.monster}} de dano</p>
+        </div>
+    </div>
+</body>
+</html>
+
+<script>    
+    new Vue({
+        el: "#app",
+        data:{
+            heroLife:100,
+            monsterLife:100,
+            heroDamage: 0,
+            monsterDamage:0,
+            list:[]
+         
+        },
+
+        methods:{
+            atacar(){
+                const heroDamage = Math.floor(Math.random()*14)+5
+                const monsterDamage = Math.floor(Math.random()*14)+2
+                this.heroLife -= heroDamage
+                this.monsterLife -= monsterDamage
+                const dano = {hero:monsterDamage, monster:heroDamage}
+                this.list.push(dano)
+            },
+
+            especial(){
+                const heroDamage = Math.floor(Math.random()*14)+2
+                const monsterDamage = Math.floor(Math.random()*14)+12
+                this.heroLife -= heroDamage
+                this.monsterLife -= monsterDamage
+                const dano = {hero:monsterDamage, monster:heroDamage}
+                this.list.push(dano)
+            },
+            
+            curar(){
+                const heroDamage = Math.floor(Math.random()*14)+5
+                const monsterDamage = Math.floor(Math.random()*14)+2
+                this.heroLife += heroDamage
+                const dano = {hero:monsterDamage}
+                this.list.push(dano)
+            },
+
+            desistir(){
+                this.heroLife = 100
+                this.monsterLife = 100
+                this.list = []
+            }
+        }
+        
+    })
+</script>
