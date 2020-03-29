@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <p v-if="logado">Usuário Logado:{{nome}}</p>
+        <p v-else-if="anonimo">Anonimo</p>
+        <p v-else="!logado">Nenhum usuário logado</p>
+        <button @click="logado=!logado">Logar</button>
+        <input type="checkbox" v-model="anonimo">
+    </div>
+</body>
+</html>
+
+<script>
+    new Vue({
+        el: "#app",
+
+        data:{
+            nome:"Matheus",
+            logado: false,
+            anonimo:false
+        }
+    })
+</script>
