@@ -1,0 +1,18 @@
+import Vue from 'vue'
+
+export default{
+    loadData({commit}){
+        Vue.prototype.$http.get('data.json').then( resp =>{
+            const data = resp.data
+            console.log(data.stocks)
+            console.log(data.stockPortfolio)
+            if(data){
+                commit('setStocks', data.stocks)
+                commit('setPortfolio',{
+                    funds:data.funds,
+                    stockPortfolio:data.stockPortfolio
+                })
+            }
+        })
+    }
+}
